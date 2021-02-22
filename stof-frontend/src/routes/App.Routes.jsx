@@ -8,6 +8,7 @@ import HomeComponent from "../components/home/Home.Component";
 
 import "./App.Routes.css";
 import PDFComponent from "../components/pdf-form/PDF.Component";
+import HealthComponent from "../components/health/Health.Component";
 
 function AppRoutes() {
   return (
@@ -30,6 +31,9 @@ function AppRoutes() {
               <Nav.Item className="mx-4">
                 <Nav.Link href="/pdf-form">PDF Form</Nav.Link>
               </Nav.Item>
+              <Nav.Item className="mx-4">
+                <Nav.Link href="/health">Health</Nav.Link>
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -42,8 +46,11 @@ function AppRoutes() {
           <Route exact path="/pdf-form">
             <PDFComponent />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/home">
             <HomeComponent />
+          </Route>
+          <Route exact path="/health">
+            <HealthComponent />
           </Route>
           <Route path="/*">
             <NotFoundComponent />

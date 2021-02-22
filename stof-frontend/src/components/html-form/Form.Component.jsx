@@ -1,7 +1,6 @@
 import Axios from "axios";
 import React from "react";
 import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useReactMediaRecorder } from "react-media-recorder";
 import { ReactMic } from "react-mic";
 import { postAudioData } from "../../services/HTML.Form.Service";
 
@@ -22,7 +21,8 @@ function FormComponent() {
   };
 
   const onData = (recordedBlob) => {
-    console.log("chunk of real-time data is: ", recordedBlob);
+    // console.log("chunk of real-time data is: ", recordedBlob);
+    return;
   };
 
   const onStop = (recordedBlob) => {
@@ -38,10 +38,10 @@ function FormComponent() {
 
   React.useEffect(() => {
     // Case 1: Select command
-
-    if (command.toLocaleLowerCase().startsWith("select")) {
-      let id = command.toLocaleLowerCase().split(" ")[1];
-      if (id in ids) {
+    if (command.startsWith("select")) {
+      let id = command.split("select")[1].trim().toLowerCase();
+      setSelectedId(id);
+      if (document.getElementById(id)) {
         document.getElementById(id).style.backgroundColor = "#DAF7A6";
 
         for (let remainingId of ids) {
@@ -50,6 +50,17 @@ function FormComponent() {
               "transparent";
           }
         }
+      }
+    } else if (command.startsWith("insert")) {
+      let value = command.split("insert")[1].trim().toLowerCase();
+      if (document.getElementById(selectedId)) {
+        document.getElementById(selectedId).value = value;
+      }
+    } else if (command.startsWith("clear")) {
+      let id = command.split("clear")[1].trim().toLowerCase();
+
+      if (document.getElementById(id)) {
+        document.getElementById(id).value = "";
       }
     }
   }, [command]);
