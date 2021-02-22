@@ -14,7 +14,7 @@ AUDIO_OUTPUT_DIR = "resources"
 
 async def check_health():
     try:
-        client = speech.SpeechClient()
+        # client = speech.SpeechClient()
         logging.info("GCP Speech To Text is reachable")
         return {
             "health": 'green'
@@ -23,7 +23,7 @@ async def check_health():
         logging.error("GCP Speech To Text is unreachable")
         return {
             "health": "red",
-            "exception": str(e)
+            "exception": e
         }
 
 
@@ -42,7 +42,7 @@ async def apply_speech_to_text(audio):
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.MP3,
         sample_rate_hertz=44100,
-        language_code="en-US",
+        language_code="en-IN",
     )
 
     operation = client.long_running_recognize(config=config, audio=audio)

@@ -7,7 +7,7 @@ html_form_router = APIRouter()
 
 @html_form_router.get("/html/health", tags=["form", "html", "health"])
 async def health():
-    return check_health()
+    return await check_health()
 
 
 @html_form_router.post("/html/audio", tags=["form", "html", "audio"])

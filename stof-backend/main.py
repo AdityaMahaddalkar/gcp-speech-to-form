@@ -6,7 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from controller.html_form_controller import html_form_router
 
-logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+# logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
 
 app = FastAPI()
 
@@ -15,7 +15,9 @@ app.include_router(html_form_router)
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "http://localhost:4200"
+    "http://localhost:4200",
+    "http://localhost:5000",
+    "http://localhost:80"
 ]
 
 app.add_middleware(
