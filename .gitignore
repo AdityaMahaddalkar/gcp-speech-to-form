@@ -1,0 +1,4 @@
+# Ignore all audio files
+*.mp3
+*.mka
+*.webm
