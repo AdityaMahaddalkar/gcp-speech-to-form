@@ -20,6 +20,8 @@ export const postMediaBlob = async (mediaBlobUrl) => {
 
       var requestUrl = baseURLs[env] + endpoint;
 
+      //Post the audio blob as file type in form data to backend
+      //for processing
       const promise = Axios.post(requestUrl, fd, {
         headers: {
           "Content-Type": "multipart/form-data",
