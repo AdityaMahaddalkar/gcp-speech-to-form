@@ -10,7 +10,8 @@ function FormComponent() {
 
   const [record, setRecord] = React.useState(false);
   const [blob, setBlob] = React.useState(null);
-  const [blobBuilder, setBlobBuilder] = React.useState([]);
+
+  const [command, setCommand] = React.useState("");
 
   const startRecording = () => {
     setRecord(true);
@@ -30,10 +31,28 @@ function FormComponent() {
   };
 
   const uploadAudioData = async () => {
-    postAudioData(blob);
+    postAudioData(blob, setCommand);
   };
 
   const ids = ["email", "password", "address", "phone"];
+
+  React.useEffect(() => {
+    // Case 1: Select command
+
+    if (command.toLocaleLowerCase().startsWith("select")) {
+      let id = command.toLocaleLowerCase().split(" ")[1];
+      if (id in ids) {
+        document.getElementById(id).style.backgroundColor = "#DAF7A6";
+
+        for (let remainingId of ids) {
+          if (remainingId !== id) {
+            document.getElementById(remainingId).style.backgroundColor =
+              "transparent";
+          }
+        }
+      }
+    }
+  }, [command]);
 
   return (
     <Container className="mt-5">
@@ -88,8 +107,10 @@ function FormComponent() {
             className="sound-wave"
             onStop={onStop}
             onData={onData}
-            strokeColor="#000000"
-            backgroundColor="#FF4081"
+            strokeColor="transparent"
+            backgroundColor="transparent"
+            channelCount={1}
+            mimeType="audio/wav"
           />
           <Button onClick={startRecording} type="button">
             Start
