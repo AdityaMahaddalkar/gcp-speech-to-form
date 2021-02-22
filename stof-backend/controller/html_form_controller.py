@@ -11,9 +11,9 @@ async def health():
 
 
 @html_form_router.post("/html/audio", tags=["form", "html", "audio"])
-async def translate(audio: bytes = File(...)):
-    apply_speech_to_text(audio)
+async def translate(audio: UploadFile = File(...)):
+    await apply_speech_to_text(audio)
     return {
         "message": "OK",
-        "file_size": f"{len(audio)}",
+        "file_size": f"{audio.__sizeof__()}",
     }
