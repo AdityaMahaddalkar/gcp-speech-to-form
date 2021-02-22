@@ -1,28 +1,36 @@
+import Axios from "axios";
 import React from "react";
 import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useReactMediaRecorder } from "react-media-recorder";
-import { postMediaBlob } from "../../services/HTML.Form.Service";
+import { ReactMic } from "react-mic";
+import { postAudioData } from "../../services/HTML.Form.Service";
 
 function FormComponent() {
   const [selectedId, setSelectedId] = React.useState(null);
 
-  const {
-    status,
-    startRecording,
-    stopRecording,
-    mediaBlobUrl,
-  } = useReactMediaRecorder({
-    blobOptions: { type: "audio/wav" },
-    mediaStreamConstraints: { audio: true, video: false },
-  });
+  const [record, setRecord] = React.useState(false);
+  const [blob, setBlob] = React.useState(null);
+  const [blobBuilder, setBlobBuilder] = React.useState([]);
 
-  const uploadAudioData = () => {
-    console.log(`Type of data : ${typeof mediaBlobUrl}`);
-    console.log(`Data: ${mediaBlobUrl}`);
+  const startRecording = () => {
+    setRecord(true);
+  };
 
-    if (mediaBlobUrl) {
-      postMediaBlob(mediaBlobUrl);
-    }
+  const stopRecording = () => {
+    setRecord(false);
+  };
+
+  const onData = (recordedBlob) => {
+    console.log("chunk of real-time data is: ", recordedBlob);
+  };
+
+  const onStop = (recordedBlob) => {
+    console.log("recordedBlob is: ", recordedBlob);
+    setBlob(recordedBlob);
+  };
+
+  const uploadAudioData = async () => {
+    postAudioData(blob);
   };
 
   const ids = ["email", "password", "address", "phone"];
@@ -74,27 +82,22 @@ function FormComponent() {
         </Form>
       </Container>
       <Container className="my-4">
-        <Row>
-          <Col>
-            Status{" "}
-            <h4>
-              <Badge variant="info">{status}</Badge>
-            </h4>
-          </Col>
-          <Col>
-            <Button variant="primary" type="button" onClick={startRecording}>
-              Start Recording
-            </Button>
-          </Col>
-          <Col>
-            <Button variant="primary" type="button" onClick={stopRecording}>
-              Stop Recording
-            </Button>
-          </Col>
-          <Col>
-            <audio src={mediaBlobUrl} controls></audio>
-          </Col>
-        </Row>
+        <div>
+          <ReactMic
+            record={record}
+            className="sound-wave"
+            onStop={onStop}
+            onData={onData}
+            strokeColor="#000000"
+            backgroundColor="#FF4081"
+          />
+          <Button onClick={startRecording} type="button">
+            Start
+          </Button>
+          <Button onClick={stopRecording} type="button">
+            Stop
+          </Button>
+        </div>
       </Container>
     </Container>
   );
