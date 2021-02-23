@@ -12,7 +12,7 @@ RUN npm run build
 FROM nginx:latest
 
 # Copy custom nginx configuration file
-COPY /stof-frontend/nginx-conf/nginx.conf /etc/nginx/nginx.conf
+COPY /nginx-conf/nginx.conf /etc/nginx/nginx.conf
 
 # Copy build from node layer to nginx html folder
 COPY --from=frontend /usr/src/build /usr/share/nginx/html
