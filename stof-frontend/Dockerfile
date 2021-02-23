@@ -5,15 +5,13 @@ COPY package.json package-lock.json /usr/src/
 WORKDIR /usr/src
 RUN npm install
 
-RUN npm install -g serve
-
 # Copy and build react application
 COPY . .
-RUN npm run build
 
-EXPOSE 5000
+EXPOSE 3000
 
-CMD [ "serve", "-s", "build" ]
+CMD [ "npm", "start" ]
+
 
 # FROM nginx:latest
 
