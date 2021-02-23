@@ -7,7 +7,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8000:8000
-  ui:
+    network_mode: "host"
+  web:
     build:
       context: ./stof-frontend
       dockerfile: Dockerfile
@@ -15,3 +16,4 @@ services:
       NODE_ENV: production
     ports:
       - 80:80
+    network_mode: "host"
