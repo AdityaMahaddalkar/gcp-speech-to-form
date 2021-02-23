@@ -1,7 +1,7 @@
 FROM node:latest AS frontend
 
 # Copy and install package.json node modules
-COPY /stof-frontend/package.json /srof-frontend/package-lock.json /usr/src
+COPY /stof-frontend/package.json /stof-frontend/package-lock.json /usr/src
 WORKDIR /usr/src
 RUN npm install
 
