@@ -1,19 +1,36 @@
 FROM node:latest AS frontend
-RUN mkdir /usr/src/frontend
-ADD stof-frondend /usr/src/frontend
-WORKDIR /usr/src/frontend
+
+# Copy and install package.json node modules
+COPY /stof-frontend/package.json /srof-frontend/package-lock.json /usr/src
+WORKDIR /usr/src
 RUN npm install
+
+# Copy and build react application
+ADD /stof-frontend .
 RUN npm run build
 
+FROM ubuntu:latest
 
-FROM nginx:latest
-RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
-RUN python3 -m ensurepip
-RUN pip3 install --no-cache --upgrade pip setuptools
-RUN mkdir /usr/src/server
-ADD stof-backend /usr/src/server
-WORKDIR /usr/src/server
+# Install nginx
+RUN apt update
+RUN apt install nginx
+
+# Install python, pip and setup tools
+RUN apt install -y python3.8
+RUN apt install -y puthon3-pip
+
+# Copy python server codebase to src
+WORKDIR /usr/src
+ADD /stof-backend /usr/src
+
+# Run pip install for all python modules
 RUN pip install -r requirements.txt
-COPY --from=frontend /usr/src/frontend/build usr/share/nginx/html
+
+# Copy from react build folder to nginx html folder
+COPY --from=frontend /usr/src/build /usr/share/nginx/html
+
+# Expose 80 port for nginx default
 EXPOSE 80
+
+# Run uvicorn app
 CMD [ "uvicorn", "main:app", "--reload" ]
