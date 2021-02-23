@@ -5,16 +5,20 @@ COPY package.json package-lock.json /usr/src/
 WORKDIR /usr/src
 RUN npm install
 
+RUN npm install -g serve
+
 # Copy and build react application
 COPY . .
 RUN npm run build
 
-FROM nginx:latest
+CMD [ "serve", "-s", "build" ]
 
-# Copy custom nginx configuration file
-COPY /nginx-conf/nginx.conf /etc/nginx/nginx.conf
+# FROM nginx:latest
 
-# Copy build from node layer to nginx html folder
-COPY --from=frontend /usr/src/build /usr/share/nginx/html
+# # Copy custom nginx configuration file
+# COPY /nginx-conf/nginx.conf /etc/nginx/nginx.conf
+
+# # Copy build from node layer to nginx html folder
+# COPY --from=frontend /usr/src/build /usr/share/nginx/html
 
 
