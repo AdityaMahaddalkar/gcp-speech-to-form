@@ -25,7 +25,7 @@ WORKDIR /usr/src
 ADD /stof-backend /usr/src
 
 # Run pip install for all python modules
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Copy from react build folder to nginx html folder
 COPY --from=frontend /usr/src/build /usr/share/nginx/html
