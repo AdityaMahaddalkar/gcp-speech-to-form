@@ -17,8 +17,9 @@ RUN apt install -y nginx
 RUN service nginx restart
 
 # Install python, pip and setup tools
+RUN add-apt-repository universe
 RUN apt install -y python3.8
-RUN apt install -y puthon3-pip
+RUN apt install -y python3-pip
 
 # Copy python server codebase to src
 WORKDIR /usr/src
