@@ -11,13 +11,13 @@ RUN npm run build
 
 FROM ubuntu:latest
 
-# Install nginx and restart nginx service
+# Install nginx
 RUN apt update
 RUN apt install -y nginx
-RUN service nginx restart
 
-# Replace default nginx.conf with our custom nginx.conf
+# Replace default nginx.conf with our custom nginx.conf and restart the service
 COPY /stof-frontend/nginx-conf/nginx.conf /etc/nginx/nginx.conf
+RUN service nginx restart
 
 # Install python, pip and setup tools
 RUN apt install -y python3.8
