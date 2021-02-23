@@ -11,9 +11,9 @@ RUN npm install -g serve
 COPY . .
 RUN npm run build
 
-EXPOSE 80
+EXPOSE 5000
 
-CMD [ "serve", "-s", "-l", "0.0.0.0:80", "build" ]
+CMD [ "serve", "-s", "build" ]
 
 # FROM nginx:latest
 
