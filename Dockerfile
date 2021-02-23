@@ -11,9 +11,10 @@ RUN npm run build
 
 FROM ubuntu:latest
 
-# Install nginx
+# Install nginx and restart nginx service
 RUN apt update
 RUN apt install nginx
+RUN service nginx restart
 
 # Install python, pip and setup tools
 RUN apt install -y python3.8
