@@ -1,4 +1,4 @@
-FROM nodejs:latest AS frontend
+FROM node:latest AS frontend
 RUN mkdir /src/frontend
 COPY ./stof-frondend /src/frontend
 WORKDIR /src/frontend
