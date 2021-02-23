@@ -23,16 +23,7 @@ function AppRoutes() {
           <Navbar.Collapse>
             <Nav className="d-flex justify-content-center">
               <Nav.Item className="mx-4">
-                <Nav.Link href="/home">Home</Nav.Link>
-              </Nav.Item>
-              <Nav.Item className="mx-4">
-                <Nav.Link href="/html-form">HTML Form</Nav.Link>
-              </Nav.Item>
-              <Nav.Item className="mx-4">
-                <Nav.Link href="/pdf-form">PDF Form</Nav.Link>
-              </Nav.Item>
-              <Nav.Item className="mx-4">
-                <Nav.Link href="/health">Health</Nav.Link>
+                <Nav.Link href="/">HTML Form</Nav.Link>
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
@@ -40,20 +31,8 @@ function AppRoutes() {
 
         {/*  Route - Component correspondence declaration*/}
         <Switch>
-          <Route exact path="/html-form">
+          <Route exact path="/">
             <FormComponent />
-          </Route>
-          <Route exact path="/pdf-form">
-            <PDFComponent />
-          </Route>
-          <Route exact path="/home">
-            <HomeComponent />
-          </Route>
-          <Route exact path="/health">
-            <HealthComponent />
-          </Route>
-          <Route path="/*">
-            <NotFoundComponent />
           </Route>
         </Switch>
       </Router>

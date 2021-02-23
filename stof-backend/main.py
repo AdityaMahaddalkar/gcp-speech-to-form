@@ -3,6 +3,9 @@ import time
 
 from fastapi import FastAPI, Request
 from starlette.middleware.cors import CORSMiddleware
+from starlette.responses import HTMLResponse
+from starlette.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
 
 from controller.html_form_controller import html_form_router
 
@@ -40,8 +43,11 @@ async def logger(request: Request, call_next):
     return response
 
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+templates = Jinja2Templates(directory=".")
+
+
 @app.get("/")
-async def root():
-    return {
-        "hello": "world"
-    }
+async def root(request: Request):
+    return templates.TemplateResponse("index.html", {'request': request})
