@@ -16,6 +16,9 @@ RUN apt update
 RUN apt install -y nginx
 RUN service nginx restart
 
+# Replace default nginx.conf with our custom nginx.conf
+COPY /stof-frontend/nginx-conf/nginx.conf /etc/nginx/nginx.conf
+
 # Install python, pip and setup tools
 RUN apt install -y python3.8
 RUN apt install -y python3-pip
