@@ -11,5 +11,7 @@ services:
     build:
       context: ./stof-frontend
       dockerfile: Dockerfile
+    environment:
+      NODE_ENV: prod
     ports:
       - 80:80

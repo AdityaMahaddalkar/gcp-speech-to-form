@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { baseURLs } from "../utils/Base.URLs";
 
-const env = "local";
+const env = process.env.NODE_ENV || "local";
 
 export const postAudioData = (blob, setCommand) => {
   console.log(`Uploading blob: ${blob.blob}`);
