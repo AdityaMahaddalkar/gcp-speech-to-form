@@ -36,5 +36,8 @@ COPY --from=frontend /usr/src/build /usr/share/nginx/html
 # Expose 80 port for nginx default
 EXPOSE 80
 
+# Copy start-up.sh file to home
+COPY start-up.sh .
+
 # Run uvicorn app
-CMD [ "uvicorn", "main:app", "--reload" ]
+CMD ["sh", "start-up.sh"]
